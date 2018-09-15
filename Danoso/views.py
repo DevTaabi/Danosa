@@ -69,4 +69,9 @@ def logout(request):
     authe.logout(request)
     return Response({'message': 'Successfully Logout'}, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def viewUsers(requrest):
+    users = db.child("users").get()
+    return Response(users.val())
+
 
