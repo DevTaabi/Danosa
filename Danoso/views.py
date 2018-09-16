@@ -32,20 +32,21 @@ def signup(request):
         company = request.data.get('company')
         email = request.data.get('email')
         password = request.data.get('password')
-        print(fname)
-        try:
-            user = authe.create_user_with_email_and_password(email, password)
-            print(user)
-        except:
-            return Response({'message': 'Unable create user , Try Again!'}, status=status.HTTP_200_OK)
-
-    uid = user['localId']
-    data = {"fname": fname, "lname": lname, "contactno": contactno, "company": company, "status": "0", "role": "0","lastlogin": "null"}
-    result =db.child("users").child(uid).set(data)
-    if(result):
-        return Response({'message': 'Successfully User Signup'}, status=status.HTTP_200_OK)
-    else:
-        return Response({'message': 'Unable to Signup , Try Again!'}, status=status.HTTP_200_OK)
+        return HttpResponse(request.data.get)
+    #     print(fname)
+    #     try:
+    #         user = authe.create_user_with_email_and_password(email, password)
+    #         print(user)
+    #     except:
+    #         return Response({'message': 'Unable create user , Try Again!'}, status=status.HTTP_200_OK)
+    # 
+    # uid = user['localId']
+    # data = {"fname": fname, "lname": lname, "contactno": contactno, "company": company, "status": "0", "role": "0","lastlogin": "null"}
+    # result =db.child("users").child(uid).set(data)
+    # if(result):
+    #     return Response({'message': 'Successfully User Signup'}, status=status.HTTP_200_OK)
+    # else:
+    #     return Response({'message': 'Unable to Signup , Try Again!'}, status=status.HTTP_200_OK)
 
 # User Login Api
 @api_view(['POST'])
