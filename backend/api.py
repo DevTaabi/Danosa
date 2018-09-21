@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
+import json
 
 import pyrebase
 
@@ -34,10 +35,11 @@ def signup(request):
         password = request.data.get('password')
         try:
             user = authe.create_user_with_email_and_password(email, password)
+            authe.send_email_verification(user['idToken'])
         except:
             return Response({'message': 'Unable create user , Try Again!'}, status=status.HTTP_200_OK)
     uid = user['localId']
-    data = {"fname": fname, "lname": lname, "contactno": contactno, "company": company, "status": "0", "role": "0","lastlogin": "null"}
+    data = {"email":email,"fname": fname, "lname": lname, "contactno": contactno, "company": company}
     result =db.child("users").child(uid).set(data)
     if(result):
         return Response({'message': 'Successfully User Signup'}, status=status.HTTP_200_OK)
@@ -46,16 +48,42 @@ def signup(request):
 
 # User Login Api
 @api_view(['POST'])
+# @permission_classes((IsAuthenticated, ))
 def login(request):
     if request.method == 'POST':
         email = request.data['email']
         password = request.data['password']
-        res = authe.sign_in_with_email_and_password(email, password)
+        try:
+           res = authe.sign_in_with_email_and_password(email, password)
+        except:
+            return Response({'message': 'Invalid Credentials , Try Again'}, status=status.HTTP_200_OK)
         if (res):
-            user = authe.get_account_info(res['idToken'])
-            return Response(user)
+            userdet = authe.get_account_info(res['idToken'])
+            userid = res['localId']
+            # email = res['email']
+            email = userdet["users"][0]["email"]
+            emailVerified = userdet["users"][0]['emailVerified']
+            if(emailVerified  == True):
+                    user = db.child("users").child(userid).get()
+                    userdata = user.val()
+                    fname = userdata['fname']
+                    lname = userdata['lname']
+                    contact = userdata['contactno']
+                    company = userdata['company']
+                    role = userdata['role']
+                    userjson = {
+                                "fname": fname ,
+                                "lname": lname,
+                                "email" : email,
+                              # " emailVerified" :emailVerified,
+                                "contactno": contact,
+                                "company": company,
+                                }
+                    return Response(userjson)
+            else:
+                return Response({'message': 'Please verified your email and Login !'}, status=status.HTTP_200_OK)
         else:
-            return Response({'message': 'Username or Password are wrong'}, status=status.HTTP_200_OK)
+            return Response({'message': 'No User Found!'}, status=status.HTTP_200_OK)
 
 
 # User Logout Api
@@ -64,17 +92,12 @@ def logout(request):
     authe.logout(request)
     return Response({'message': 'Successfully Logout'}, status=status.HTTP_200_OK)
 
-#get users
-@api_view(['GET'])
-def viewusers(requrest):
-    users = db.child("users").get()
-    return Response(users.val())
 
-#get users by id
+# get users by id
 @api_view(['GET'])
 def userbyid(request,userid):
-    id = userid
-    user = db.child("users").child(id).get()
+    # user = authe.get_account_info(userid)
+    user = db.child("users").child(userid).get()
     return Response(user.val())
 
 #update User
@@ -82,26 +105,21 @@ def userbyid(request,userid):
 def user_update(request,userid):
     try:
         user = db.child("users").child(userid).get()
-    except user.DoesNotExist:
+    except:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == 'PUT':
+        email = request.data.get('email')
         fname = request.data.get('fname')
         lname = request.data.get('lname')
         contactno = request.data.get('contactno')
         company = request.data.get('company')
-        data = {"fname": fname, "lname": lname, "contactno": contactno, "company": company}
+        # authe.sign_in_with_email_and_password(email, password)
+        authe.updateEmail(email)
+        data = {"email": email,"fname": fname, "lname": lname, "contactno": contactno, "company": company}
         db.child("users").child(userid).update(data)
     elif request.method =='GET':
         user = db.child("users").child(userid).get()
         return Response(user.val())
-
-#delete users by id
-@api_view(['GET'])
-def del_user(request,userid):
-        db.child("users").child(userid).remove()
-        user = db.child("users").get()
-        return Response(user.val())
-
 
 # Add Products
 @api_view(['POST'])
@@ -180,3 +198,9 @@ def getproducts(request):
         products = db.child("products").get()
         print(products.val())
         return Response(products.val())
+
+@api_view(['POST'])
+def reset_password(request):
+    email = request.data.get('email')
+    authe.send_password_reset_email(email)
+    return Response({'message': 'Password Reset email sent !'}, status=status.HTTP_200_OK)
