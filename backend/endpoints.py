@@ -9,6 +9,7 @@ urlpatterns = [
     path('user_update/<userid>/', api.user_update),
     path('reset_password/', api.reset_password),
     path('logout/', api.logout),
-    path('add_products/', api.add_products),
     path('getproducts/', api.getproducts),
+    path('add_quote/<userid>/', api.add_quote),
+    path('get_key/', api.get_key),
 ]

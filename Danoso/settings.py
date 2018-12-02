@@ -38,7 +38,27 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'fcm_django',
+    'fcm',
 ]
+GCLOUD_PROJECT='danoso-49851'
+
+# FCM_APIKEY = "AAAAWuYIVQ4:APA91bH-DfkV9MsC0MNtrGOr4NCvnNqg7wuHhBmoxz2JzJWLiB2rfrSthGe_sbXcStCQENQlEIRIvy2-AdUD-sn81mT9gyEmOfK_Mh3L4VyqIv8qUAvk6c6pnwXKRnuo7HNzxc-uTHX9"
+#
+# FCM_DJANGO_SETTINGS = {
+#         "FCM_SERVER_KEY": "AAAAWuYIVQ4:APA91bFL5E3fwBWsA6kpxxf9I3QN_d32qO7Eu38qcw8OMMZjO_vdLjzB0abf16lMshKcAnrgSZeTfl67BSQKtccTh3VH_2NUhMC2rb-udBzG55nI_EcjRPvspXwGEAzfkT37k1kufaLT",
+#          # true if you want to have only one active device per registered user at a time
+#          # default: False
+#         "ONE_DEVICE_PER_USER": True,
+#          # devices to which notifications cannot be sent,
+#          # are deleted upon receiving error response from FCM
+#          # default: False
+#         "DELETE_INACTIVE_DEVICES": True,
+# }
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 1
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
