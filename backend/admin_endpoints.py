@@ -2,7 +2,6 @@ from django.urls import path
 
 from . import admin_api
 urlpatterns = [
-    path('topic/',admin_api.topic),
     path('login/', admin_api.login),
     path('add_user/', admin_api.add_user),
     path('all_users/', admin_api.all_users),
