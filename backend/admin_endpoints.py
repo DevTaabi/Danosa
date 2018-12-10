@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import admin_api
 urlpatterns = [
+    path('topic/',admin_api.topic),
     path('login/', admin_api.login),
     path('add_user/', admin_api.add_user),
     path('all_users/', admin_api.all_users),
@@ -21,4 +22,5 @@ urlpatterns = [
     path('update_token/<userid>/', admin_api.update_token),
     path('sendnotify/', admin_api.sendnotify),
     path('sendnotify_to_all/', admin_api.sendnotify_to_all),
+    path('qoutes_notify',admin_api.qoutes_notify),
 ]

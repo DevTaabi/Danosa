@@ -115,18 +115,45 @@ def reset_password(request):
     return Response({'message': 'Password Reset email sent !'}, status=status.HTTP_200_OK)
 
 
-# Add Quote
+# # Add Quote
+# @api_view(['POST'])
+# def add_quote(request,userid):
+#     if request.method == 'POST':
+#           data = request.data
+#         #   id = request.data.get('id')
+#         #   id =  "Quotes/Quote"+ref.generate_key()
+#         #   data{ "id" : id , dat}
+#           qoute = db.child("Quotes").child("Quote").child(userid).push(data)
+#         #   key = qoute.getKey();
+#         #   key = {"id" , key}
+#         #   db.child("Quotes").child("Quote").child(userid).child(id).update(key)
+#           return Response(qoute)
+#         #   return Response({'message': ' Quote made successfully!'}, status=status.HTTP_200_OK)
+
+# Add Quote & send notification to admin
 @api_view(['POST'])
 def add_quote(request,userid):
     if request.method == 'POST':
           data = request.data
           id = request.data.get('id')
+          date = request.data.get('date')
+          userinfo = request.data.get('userinfo')
           qoute = db.child("Quotes").child("Quote").child(userid).child(id).set(data)
+          username = db.child("users").child("user").child(userid).child("fname").get()
+          msg = "A new qoute added+"+username
+          notify = {
+                  "userId": userid,
+                  "qouteId": id,
+                   "msg": msg,
+                   "datetime": date,
+                   "userinfo": userinfo
+          }
+          notifications = db.child("notifications").child("notification").child(id).set(notify)
           return Response({'message': ' Quote made successfully!'}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def get_key(request):
     if request.method == 'GET':
-       key = db.child("products").child("key").get()
+       # key = db.child("products").child("key").get()
        return Response(key.val())

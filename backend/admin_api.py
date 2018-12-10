@@ -36,7 +36,27 @@ data_json = basedir+'/cred.json'
 cred = credentials.Certificate(data_json)
 default_app = firebase_admin.initialize_app(cred)
 
+@api_view(['GET'])
+def topic(request):
+    topic = 'users'
+    # [START subscribe]
+    # These registration tokens come from the client FCM SDKs.
+    registration_tokens = [
+        'f4j0DWU0H2k:APA91bEfqclKgIbGUMFqfGSrBZB0uiYKE1RY8GalJ-OoAIUluWj28SXJAs-3D464GlbhzVpQOU9E-VEXhIMT5oDGkjLwCa31oqkvpAQvpB0_CmHvfp8GRzDB6jRSxpOXHS6NBYupgJWG',
+        'cdbxHfQHgO8:APA91bFi56uMF9uH2XQKj8NKpXvfls9-ADhpGvWat-ADdyxETgYvXhl6Us5fSk8EzV472VKn0faf-2YGR2yg6K6A0wfwRic06EMMEbfHKi_m6Ho3Yv8EWAuEBLkGoEPFwg7r7kwyKgkE',
+        'duKGFNb_MGg:APA91bHaFCT0kvLyCyiVyvqjAA8VJvOixUg9JcQ4zI9a5ucqfMFZksIwlcC0SFsByt0zkTlOmUeW5DwQ00sSsJ08IO1QhoHQL_v23kjqW5ISv7ApwZCwUL9MPu7kyayS07V1DQ_xmYF7',
+        'fUrfpiIQJYY:APA91bHcU2zAi8ONBKY8Mtfs7c2KkPn3JR8-PM1Ai8fITFjIfROCuCJlb1muwpVpWZbMj_V9UXejysYOkgQlOkAKSHTbutc5Rm7nH3eZq1QnM7F_MBB81PHd1WQjqWbjikUWuKA6b-jB',
+        'cH9Jf8MdTks:APA91bEnPiSbndAaVUfc7BZiqwQIARG5UhndcURZb2jH17rEKW5y_2vy8faqAU-FNrjSUxfBQN2pa58H77KMSxjHKJcM1P8gTMd8eOBNDZCnDLePr6wGpKy1sKRSzl4fovtJ-_KPC_8C',
+    ]
 
+    # Subscribe the devices corresponding to the registration tokens to the
+    # topic.
+    response = messaging.subscribe_to_topic(registration_tokens, topic)
+    # See the TopicManagementResponse reference documentation
+    # for the contents of response.
+    count = response.success_count
+    print(response.success_count, 'tokens were subscribed successfully')
+    return Response(count)
 
 @api_view(['POST'])
 def login(request):
@@ -307,10 +327,11 @@ def sendnotify(request):
       message = messaging.Message(
             android=messaging.AndroidConfig(
                 ttl=datetime.timedelta(seconds=3600),
-                priority='normal',
+                priority='high',
                 notification=messaging.AndroidNotification(
                     title=title,
                     body=body,
+                    sound="default",
                 ),
             ),
             token=registration_token,
@@ -325,6 +346,7 @@ def sendnotify(request):
                         alert=messaging.ApsAlert(
                             title=title,
                             body=body,
+                            sound="default",
                         ),
                         badge=42,
                     ),
@@ -346,7 +368,10 @@ def update_token(request,userid):
      device_type= request.data.get('device_type')
      data = {"device": fcm_token, "device_type":device_type}
      db.child("users").child("user").child(userid).update(data)
-     topic = 'all_users'
+     if(device_type == "android"):
+         topic = 'users'
+     else:
+         topic = 'ios_users'
      registration_tokens = [fcm_token]
      messaging.subscribe_to_topic(registration_tokens, topic)
      return Response({'message': 'Token Updated !'}, status=status.HTTP_200_OK)
@@ -357,16 +382,38 @@ def update_token(request,userid):
 def sendnotify_to_all(request):
     title = request.data.get('title')
     body = request.data.get('body')
-    topic = 'all_users'
+    android = 'users'
     message = messaging.Message(
-        data={
-            'title': title,
-            'body': body,
-        },
-        topic=topic,
+        android=messaging.AndroidConfig(
+            ttl=datetime.timedelta(seconds=3600),
+            priority='high',
+            notification=messaging.AndroidNotification(
+                title=title,
+                body=body,
+                sound="default",
+            ),
+        ),
+        topic=android,
+    )
+    result = messaging.send(message)
+    ios = 'ios_users'
+    message = messaging.Message(
+        apns=messaging.APNSConfig(
+            headers={'apns-priority': '10'},
+            payload=messaging.APNSPayload(
+                aps=messaging.Aps(
+                    alert=messaging.ApsAlert(
+                        title=title,
+                        body=body,
+                    ),
+                    badge=42,
+                ),
+            ),
+        ),
+        topic=ios,
     )
     messaging.send(message)
-    return Response({'message': 'Notification sent Successfully to All Users!'}, status=status.HTTP_200_OK)
+    return Response({'message': 'Notification sent Successfully'}, status=status.HTTP_200_OK)
 
 #del qoute
 @api_view(['GET'])
@@ -385,6 +432,10 @@ def update_note(request,userid,id):
         db.child("Quotes").child("Quote").child(userid).child(id).update(data)
         return Response({'message': 'User updated Successfully!'}, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def qoutes_notify(request):
+    notifications = db.child("notifications").get()
+    return Response(notifications.val())
 
 
 

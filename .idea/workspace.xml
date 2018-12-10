@@ -3,14 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ade71241-cdc5-46d5-91d3-1001e5cef7fc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Danoso/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Danoso/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Danoso/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Danoso/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/admin.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/admin_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/admin_api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/admin_endpoints.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/admin_endpoints.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/endpoints.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/endpoints.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cred.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cred.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +18,8 @@
     <session id="1760432706">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="17" />
+          <entry key="project.closed" value="21" />
+          <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.108" value="1" />
           <entry key="project.open.time.2" value="2" />
           <entry key="project.open.time.26" value="1" />
@@ -38,36 +35,38 @@
           <entry key="project.open.time.38" value="1" />
           <entry key="project.open.time.40" value="1" />
           <entry key="project.open.time.44" value="1" />
+          <entry key="project.open.time.45" value="1" />
           <entry key="project.open.time.47" value="1" />
           <entry key="project.open.time.49" value="1" />
-          <entry key="project.opened" value="20" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="24" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gitignore" value="2" />
-          <entry key="json" value="3" />
-          <entry key="py" value="75" />
+          <entry key="json" value="4" />
+          <entry key="py" value="77" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JSON" value="3" />
+          <entry key="JSON" value="4" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="75" />
+          <entry key="Python" value="77" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="4" />
-          <entry key="py" value="7526" />
+          <entry key="py" value="8138" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="4" />
-          <entry key="Python" value="7526" />
+          <entry key="Python" value="8138" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -104,19 +103,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/admin_endpoints.py">
+        <entry file="file://$PROJECT_DIR$/backend/admin_api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+            <state relative-caret-position="25">
+              <caret line="405" column="36" lean-forward="true" selection-start-line="405" selection-start-column="36" selection-end-line="405" selection-end-column="36" />
+              <folding>
+                <marker date="1544294187428" expanded="true" signature="15710:15812" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/backend/admin_api.py">
+        <entry file="file://$PROJECT_DIR$/backend/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="391" lean-forward="true" selection-start-line="391" selection-end-line="391" />
+            <state relative-caret-position="200">
+              <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="151" selection-end-column="94" />
             </state>
           </provider>
         </entry>
@@ -146,7 +148,9 @@
       <find>set</find>
       <find>topic</find>
       <find>if</find>
+      <find>qoutes</find>
       <find>add</find>
+      <find>ge</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -163,14 +167,14 @@
         <option value="$PROJECT_DIR$/Danoso/urls.py" />
         <option value="$PROJECT_DIR$/backend/models.py" />
         <option value="$PROJECT_DIR$/Danoso/settings.py" />
-        <option value="$PROJECT_DIR$/backend/admin_api.py" />
-        <option value="$PROJECT_DIR$/backend/admin_endpoints.py" />
         <option value="$PROJECT_DIR$/backend/endpoints.py" />
+        <option value="$PROJECT_DIR$/backend/admin_endpoints.py" />
+        <option value="$PROJECT_DIR$/backend/admin_api.py" />
         <option value="$PROJECT_DIR$/backend/api.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-35" />
     <option name="y" value="75" />
     <option name="width" value="1382" />
@@ -241,10 +245,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12276786" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.02827381" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -276,13 +279,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/cred.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/699037958/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -311,9 +307,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/admin.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/admin.py" />
     <entry file="file://$PROJECT_DIR$/backend/endpoints.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
@@ -321,27 +315,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/api.py">
+    <entry file="file://$PROJECT_DIR$/backend/cred.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#55#0" expanded="true" />
-          </folding>
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/admin_endpoints.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+        <state relative-caret-position="412">
+          <caret line="20" column="34" lean-forward="true" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/admin_api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="391" lean-forward="true" selection-start-line="391" selection-end-line="391" />
+        <state relative-caret-position="25">
+          <caret line="405" column="36" lean-forward="true" selection-start-line="405" selection-start-column="36" selection-end-line="405" selection-end-column="36" />
+          <folding>
+            <marker date="1544294187428" expanded="true" signature="15710:15812" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="151" selection-end-column="94" />
         </state>
       </provider>
     </entry>
